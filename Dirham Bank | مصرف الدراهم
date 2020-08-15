@@ -1,0 +1,40 @@
+class Dirhams_bank :
+	print('خدماتنا هي : \n1 معرفة المبلغ الذي تملكه \n2 تعبئة حسابك \n3 تحويل المال من و إلى حسابك')
+	def elmeblar() :
+		aib = {'عبد الرحيم'  : 1000 , 'أحمد ' : 56000000 , 'مريم' : 50 }
+		name = input('الإسم :')
+		print ('المبلغ الذي تملكه : ' ,aib[name])
+	def ta3biaa () :
+		aib = {'عبد الرحيم'  : 1000 , 'أحمد ' : 56000000 , 'مريم' : 50 }
+		import datetime
+		date = datetime.datetime.now()
+		d = int(date.strftime('%d'))
+		if int(d) == 21  :
+			name = input('الإسم :')
+			aib[name]+=1000
+			print (aib[name])
+		else :
+			print('وقت التعبئة للبطاقات لم يصل بعد انتظر متى اليوم 21 في الشهر ')
+	def convert () :
+		aib = {'عبد الرحيم'  : 1000 , 'أحمد ' : 56000000 , 'مريم' : 50 }
+		f = input('التحويل من حساب :')
+		t = input ('إلى حساب :')
+		amount = int(input('مبلغ التحويل :'))
+		if ( aib[f] - amount ) >= 0 :
+			aib[f]-= amount
+			aib[t]+= amount
+			print ('المبلغ الذي أصبح عند {} هو {}'.format(f,aib[f]))
+			print ('المبلغ الذي أصبح عند {} هو {}'.format(t,aib[t]))
+		else :
+			print ('لا يمكنك تحويل مبلغ {} دولار '.format(amount))
+a = 'نعم' 
+while a == 'نعم' :
+	c = int(input('ادخل رقم الخدمة التي تريدها : '))
+	if c == 1 :
+		Dirhams_bank.elmeblar()  
+	elif c == 2  :
+		Dirhams_bank.ta3biaa() 
+	else :
+		Dirhams_bank.convert()
+	a = input('هل تريد الاستخدام مرة أخرى ؟')
+	print('*********************************')
