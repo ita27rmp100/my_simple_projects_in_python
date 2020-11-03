@@ -1,0 +1,15 @@
+from tkinter import * # استدعينا المكتبة تيكنتر
+t = Tk()  # عملنا واجهة
+t.geometry("175x50")  # حددنا أبعاد واجهة المستخدم الرسومية
+t.title("الساعة")  # عنوان الواجهة
+t.resizable(0,0)  # عدم إمكانية تكبير واجهة المستخدم الرسومية
+clock = Label(t,width=50,height=5,bg="black",fg="red",font=("arial",20))  # أنشأت اللايبل التي ستعرض فيها الساعة
+clock.pack()
+def clock_() :  # دالة لتغيير الوقت
+    import datetime
+    date = datetime.datetime.now()
+    w = f"{date.hour}:{date.minute}:{date.second}"
+    clock.config(text=w)
+    t.after(1,clock_)
+clock_()
+t.mainloop()
