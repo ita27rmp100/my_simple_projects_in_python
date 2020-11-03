@@ -1,0 +1,24 @@
+from tkinter import *
+import calendar
+import datetime
+t = Tk()
+t.geometry("200x215")
+t.resizable(0,0)
+t.title("الروزنامة")
+t.iconbitmap(r"C:\Users\SeVeN\Downloads\calendar.jpg")
+date = datetime.datetime.now()
+def cal() :
+    x = calendar.month(int(yr.get()),int(mounth.get()))
+    l.config(text=x)
+
+m = Label(t,text=": الشهر").place(x=160,y=5)
+mounth = Spinbox(t,from_=1,to=12,width=5)
+mounth.place(x=110,y=5)
+y = Label(t,text=": السنة").place(x=60,y=5)
+yr = Spinbox(t,from_=1900,to=date.year,width=5)
+yr.place(x=10,y=5)
+l = Label(t,text="",bg="white",anchor=W,width=18,height=9)
+l.place(x=36,y=36)
+b = Button(t,text="OK",command=cal)
+b.place(x=85,y=182)
+t.mainloop()
