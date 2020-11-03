@@ -1,0 +1,64 @@
+from tkinter import * # كالعادة استدعينا مكتبة تكينتر لتصميم الواجهة الرسومية
+from tkinter import messagebox
+from tkinter import ttk
+from pytube import YouTube # هنا استدعينا من المكتبة بايتوب الملف أو الكاس يوتيوب لتحميل فيديوهات اليوتيوب
+import webbrowser
+t = Tk()
+t.title("تحميل فيديوهات اليوتيوب")
+t.geometry("400x145")
+t.resizable(0,0)
+t.iconbitmap(r"C:\Users\SeVeN\Downloads\doyou.jpg")
+
+webbrowser.open("https://www.youtube.com/")
+
+url = StringVar()
+jawda = StringVar()
+masar = StringVar()
+masar.set(r"C:\Users\Seven\Desktop")
+
+l1 = Label(t,text=": رابط الفيديو")
+l1.place(x=300,y=10)
+u = Entry(t,textvariable=url,width=40)
+u.place(x=50,y=10)
+
+l1 = Label(t,text=": الجودة")
+l1.place(x=300,y=40)
+l2 = ttk.Combobox(textvariable=jawda,width=37)
+l2.place(x=50,y=40)
+ja = ["144p","240p","360p","480p","720p","1080p"]
+l2["values"]=ja
+jawda.set(ja[0])
+
+l3 = Label(t,text=": مسار تحميل الفيديو")
+l3.place(x=280,y=70)
+j = Entry(t,textvariable=masar,width=35)
+j.place(x=50,y=70)
+
+def download_() :
+    t.geometry("400x190")
+    labeldo.config(text="جاري تحميل الفيديو")
+    messagebox.showinfo("","سيتم الآن بدأ تحميل الفيديو")
+    try :
+        yt = YouTube(url.get())
+        yt.streams.get_by_resolution(jawda.get()).download(masar.get()) # دالة خاصة بالدقة و الثانية لللمكان الذي سنضع فيه الفيديو بعد تحميله
+        jrt["value"] = 100
+        messagebox.showinfo("","تم تحميل الفيديو")
+
+    except :
+        messagebox.showerror("خطأ","لا يوجد فيديو يحمل هذا الرابط") # في حالة عدم وجودرابط الفيديو يخرج لي رسالة خطأ
+    sleep(1)
+    jrt["value"] = 0
+    labeldo.config(text="")
+    t.geometry("400x145")
+
+b = Button(t,text="تحميل",command=download_)
+b.place(x=175,y=100)
+
+labeldo = Label(t,text="")
+labeldo.place(x=150,y=130)
+
+jrt = ttk.Progressbar(t)
+jrt.place(x=149,y=160)
+jrt["value"]=0
+
+t.mainloop()
