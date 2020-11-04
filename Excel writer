@@ -1,0 +1,50 @@
+from tkinter import *
+from tkinter import messagebox
+import os
+t = Tk()
+t.title("كاتب الاكسل")
+t.geometry("240x160")
+l1 = Label(t,text=": خيارات الإضافة")
+l1.place(x=150,y=8)
+opt = StringVar()
+opt.set("إضافة في نفس الصف")
+option = OptionMenu(t,opt,"إضافة في نفس الصف","إضافة في صف جديد")
+option.place(x=5,y=5)
+
+l2 = Label(t,text=": اسم ملف الاكسل")
+l2.place(x=150,y=50)
+
+entry1 = Entry(t)
+entry1.place(x=15,y=50)
+
+l3 = Label(t,text=": إضافة نص")
+l3.place(x=175,y=90)
+
+entry2 = Entry(t,width=25)
+entry2.place(x=15,y=92)
+
+def append_to_file() :
+    with open(r"{0}".format(entry1.get()), "a") as file:
+        try :
+            if opt.get() == "إضافة في نفس الصف":
+                file.write(f"{entry2.get()};")
+            if opt.get() == "إضافة في صف جديد" :
+                file.write(f"\n{entry2.get()};")
+            messagebox.showinfo("معلومة","تمت الإضافة")
+        except :
+            messagebox.showerror("خطأ", "أغلق الملف لكي يعمل البرنامج")
+b = Button(t,text="إضافة",command=append_to_file)
+b.place(x=100,y=120)
+
+def open_() :
+    os.startfile(r"{0}".format(entry1.get()))
+
+my_menu = Menu(t)
+t.configure(menu=my_menu)
+file_menu = Menu(my_menu)
+my_menu.add_cascade(label="option",menu=file_menu)
+file_menu.add_command(label="open the file",command=open_)
+file_menu.add_separator()
+file_menu.add_command(label="exit",command=lambda : t.destroy())
+
+t.mainloop()
