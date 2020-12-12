@@ -1,0 +1,30 @@
+from tkinter import * #استدعاء المكتبة تكينتر
+t = Tk() #إنشاء الواجهة 
+t.geometry("590x500") #تحديد الأبعاد
+t.title("microsoft word") #إسم البرنامج
+color = StringVar()
+s_o_w = StringVar()
+c = Canvas(t,width=585,height=85,bg="lightblue")
+c.place(x=0,y=0)
+l1 = Label(c,text=": حجم الخط",bg="lightblue").place(y=10,x=400) #إنشاء لابل 
+ft1 = Spinbox(c,width=5,from_=8,to=72)#إنشاء سبين بوكس
+ft1.place(x=350,y=10)
+l1 = Label(c,text=": لون الخط",bg="lightblue").place(y=10,x=290) #إنشاء لابل 
+ft = Entry(c,width=8,textvariable=color)#إنشاء Entry لإدخال النص صغير و يعني مربع النص 
+ft.place(x=225,y=10)
+l1 = Label(c,text=": نوع الخط",bg="lightblue").place(y=10,x=170) #إنشاء لابل 
+ft = Entry(c,width=8,textvariable=s_o_w)#إنشاء Entry لإدخال النص صغير و يعني مربع النص لإدخال نوع النص
+ft.place(x=110,y=10)
+
+def edit() : #أنشات الدالة ثم سأضيف لها الخصائص الخاصة بها و أعود إليكم بعد التعديل
+    r = int(ft1.get()) * (64 / int(ft1.get()))
+    txt.config(fg=color.get(),font=(s_o_w.get(),ft1.get()),width=int((72-int(ft1.get())+(int(ft1.get())*(int(ft1.get()))/1.96875))),height=23)
+
+b = Button(c,text="OK",width=3,command=edit)#قمنا بإنشاء زر و بعد أن أريكم التغييرات التي قمت بها و نضيف حقل للكتابة سنضيف المهمة التي يقوم بها
+b.place(x=265,y=42)
+color.set("black")
+s_o_w.set("arial")
+txt = Text(t,width=64,height=23,fg="black",font="arial") 
+txt.place(x=5,y=95)
+
+t.mainloop()
