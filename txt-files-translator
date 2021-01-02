@@ -1,0 +1,52 @@
+from tkinter import *
+import os
+from  tkinter import ttk
+t = Tk()
+t.title("مترجم ملفات txt")
+t.geometry("300x60")
+t.resizable(0,0)
+
+to_lang = Label(t,text=": غير لغة الملف إلى ").place(x=200,y=2)
+masar = Label(t,text=": مسار الملف").place(x=227,y=30)
+
+lan = ttk.Combobox(t,value=["arabic","french","english"],width=27)
+lan.place(x=5,y=0)
+inp_massar = Entry(t,width=35)
+inp_massar.place(x=5,y=30)
+
+
+def translate_file(file,to="arabic"):
+    from translate import Translator
+    with open(r"{}".format(file)) as txt :
+        text = txt.read()
+    translator = Translator(to_lang=to)
+    translation = translator.translate(text)
+    return translation
+def copy_translate() :
+    with open(r"{}_1{}".format(inp_massar.get()[0:str(inp_massar.get()).index(".")],inp_massar.get()[str(inp_massar.get()).index("."):]),mode="w",encoding='utf-8') as text :
+        text.write(translate_file(inp_massar.get(),to=lan.get()))
+    os.startfile(r"{}_1{}".format(inp_massar.get()[0:str(inp_massar.get()).index(".")],inp_massar.get()[str(inp_massar.get()).index("."):]))
+
+def translate_() :
+    x = translate_file(r"{}".format(inp_massar.get()),to=lan.get())
+    with open(r"{}".format(inp_massar.get()),mode="w",encoding='utf-8') as text :
+        text.write(x)
+    os.startfile(r"{}".format(inp_massar.get()))
+
+my_menu = Menu(t)
+t.configure(menu=my_menu)
+file_menu = Menu(my_menu)
+my_menu.add_cascade(label="أنواع الترجمة",menu=file_menu)
+file_menu.add_command(label="إنشاء نسخة مترجمة للملف",command=copy_translate)
+file_menu.add_command(label="ترجمة الملف",command=translate_)
+file_menu.add_separator()
+
+def key(event) :
+    if event.keysym == "F5" :
+        copy_translate()
+    if event.keysym == "F4" :
+        translate_()
+
+t.bind("<Key>",key)
+
+t.mainloop()
